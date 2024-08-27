@@ -11,18 +11,43 @@
 
     <!-- Tailwind -->
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> --}}
-    <link href="{{ asset('css/tailwind.min.css') }}" rel="stylesheet"> 
+    <link href="{{ asset('css/tailwind.min.css') }}" rel="stylesheet">
     {{-- o asset pega da pasta pública certinho --}}
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-        .font-family-karla { font-family: karla; }
-        .bg-sidebar { background: #3d68ff; }
-        .cta-btn { color: #3d68ff; }
-        .upgrade-btn { background: #1947ee; }
-        .upgrade-btn:hover { background: #0038fd; }
-        .active-nav-link { background: #1947ee; }
-        .nav-item:hover { background: #1947ee; }
-        .account-link:hover { background: #3d68ff; }
+
+        .font-family-karla {
+            font-family: karla;
+        }
+
+        .bg-sidebar {
+            background: #3d68ff;
+        }
+
+        .cta-btn {
+            color: #3d68ff;
+        }
+
+        .upgrade-btn {
+            background: #1947ee;
+        }
+
+        .upgrade-btn:hover {
+            background: #0038fd;
+        }
+
+        .active-nav-link {
+            background: #1947ee;
+        }
+
+        .nav-item:hover {
+            background: #1947ee;
+        }
+
+        .account-link:hover {
+            background: #3d68ff;
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
@@ -32,12 +57,12 @@
             <a href="{{ route('index') }}" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
             {{-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
-            </button> --}} 
+            </button> --}}
         </div>
         <nav class="text-white text-base font-semibold pt-3">
             <a href="{{ route('index') }}" class="flex items-center text-white py-4 pl-6 nav-item @if (Request::is('/*')) active-nav-link @else opacity-75 hover:opacity-100 @endif">
                 <i class="fas fa-home mr-3"></i>
-                Inicial     
+                Inicial
             </a>
             <a href="{{ route('animais') }}" class="flex items-center text-white py-4 pl-6 nav-item @if (Request::is('animais*')) active-nav-link @else opacity-75 hover:opacity-100 @endif">
                 <i class="fas fa-paw mr-3"></i>
@@ -65,10 +90,10 @@
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
 
                 <span class="flex items-center mr-2">
-                    @if (Auth::user()) 
-                        {{ Auth::user()['name'] }}
+                    @if (Auth::user())
+                    {{ Auth::user()['name'] }}
                     @else
-                        Você não está autenticado
+                    Você não está autenticado
                     @endif
                 </span>
 
@@ -77,11 +102,11 @@
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                @if (Auth::user())
+                    @if (Auth::user())
                     <a href="{{ route('logout') }}" class="block px-4 py-2 account-link hover:text-white">Logout</a>
-                @else
+                    @else
                     <a href="{{ route('login') }}" class="block px-4 py-2 account-link hover:text-white">Login</a>
-                @endif
+                    @endif
                 </div>
             </div>
         </header>
@@ -142,25 +167,43 @@
                 <i class="fas fa-plus mr-3"></i> New Report
             </button> -->
         </header>
-    
+
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">@yield('titulo')</h1>
+                <div class="w-full my-6 pr-0 lg:pr-2">
+                    <div class="flex flex-warp">
+                        @if(session('erro'))
+                        <div class="leading-loose w-full mb-2">
 
-                <div class="flex flex-warp">
-                    <div class="leading-loose">
-                        @yield('conteudo')
+                            <div class="bg-red-200 border-t-4 border-red-500 rounded-b text-red-800 px-4 py-3 shadow-md" role="alert">
+                                <div class="flex">
+                                    <div class="py-1"><i class="fas fa-exclamation-triangle mr-3"></i></div>
+                                    <div>
+                                        <p class="font-bold">Erro!</p>
+                                        <p class="text-sm">{{ session('erro') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @endif
+                        <div class="w-full mt-6 pl-0 lg:pl-2">
+                            <div class="leading-loose">
+                                @yield('conteudo')
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Content goes here! 😁 -->
             </main>
-    
+
             <footer class="w-full bg-white text-right p-4">
                 Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
             </footer>
         </div>
-        
+
     </div>
 
     <!-- AlpineJS -->
