@@ -170,7 +170,7 @@
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6">@yield('titulo')</h1>
+                <h1 class="text-3xl text-black">@yield('titulo')</h1>
                 <div class="w-full my-6 pr-0 lg:pr-2">
                     <div class="flex flex-warp">
                         @if(session('erro'))
