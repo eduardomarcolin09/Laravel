@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AnimalCadastrar;
 use App\Models\Animal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AnimaisController extends Controller
 {
     public function index() {
         // pegando todos dados
         $dados = Animal::all();
+        // pegando só os que foram apagados
+        // $dados = Animal::onlyTrashed()->get();
+        // todos com apagados
+        // $dados = Animal::withTrashed()->get();
         // ter certeza que veio tudo..       dd($dados);
         return view('animais/index', [
             'animais' => $dados,
@@ -17,7 +23,7 @@ class AnimaisController extends Controller
     }
 
     public function cadastrar() {
-        return view('animais.cadastrar');
+        return view('animais.cadastrar');   
     }
 
     public function gravar(Request $form) {
@@ -30,9 +36,9 @@ class AnimaisController extends Controller
             'idade' => 'required|integer'                            
         ]);
         // Criando um registro dentro da model animal
-        Animal::create($dados);
-        
-        return redirect()->route('animais');
+        # Animal::create($dados);
+        Mail::to('alguem@batata.com')->send(new AnimalCadastrar());
+        # return redirect()->route('animais');
     }
 
     public function editar(Animal $animal) {
