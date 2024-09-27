@@ -26,6 +26,8 @@ Route::put('/animais/editar/{animal}', [AnimaisController::class, 'editarGravar'
 Route::get('/animais/apagar/{animal}', [AnimaisController::class, 'apagar'])->name('animais.apagar');
 Route::delete('/animais/apagar/{animal}', [AnimaisController::class, 'deletar']);
 
+Route::get('animais/ver/{animal}', [AnimaisController::class, 'ver'])->name('animais.ver');
+
 // Usuarios
 
 Route::get('login', [UsuariosController::class, 'login'])->name('login');

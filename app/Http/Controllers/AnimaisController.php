@@ -36,9 +36,9 @@ class AnimaisController extends Controller
             'idade' => 'required|integer'                            
         ]);
         // Criando um registro dentro da model animal
-        # Animal::create($dados);
-        Mail::to('alguem@batata.com')->send(new AnimalCadastrar());
-        # return redirect()->route('animais');
+        $animal = Animal::create($dados);
+        Mail::to('alguem@batata.com')->send(new AnimalCadastrar($animal));
+        return redirect()->route('animais');
     }
 
     public function editar(Animal $animal) {
@@ -67,5 +67,11 @@ class AnimaisController extends Controller
     public function deletar(Animal $animal) {
         $animal->delete();
         return redirect()->route('animais');
+    }
+
+    public function ver(Animal $animal) {
+        return view('animais.ver', [
+            'animal' => $animal,
+        ]);
     }
 }
